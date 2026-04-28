@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resumo Pós-Aula — Isabelle — CZK English</title>
+
+  <style>
+    :root{
+      --page-bg: #f4f7fa;
+      --card-bg: #fff;
+      --accent: #2f86e6;
+      --accent-dark: #1f6fd1;
+      --green: #36b37e;
+      --muted: #6b7280;
+      --border: #e6eef8;
+      --box-radius: 12px;
+      --card-width: 720px;
+    }
+
+    html,body{
+      height:100%;
+      margin:0;
+      padding:0;
+      background:var(--page-bg);
+      font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    .wrap{
+      min-height:100%;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:48px 20px;
+    }
+
+    .card{
+      width:100%;
+      max-width:var(--card-width);
+      background:var(--card-bg);
+      border-radius:18px;
+      padding:28px;
+      box-shadow:0 6px 22px rgba(33,47,60,0.06);
+      border:1px solid rgba(15,33,64,0.03);
+    }
+
+    header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:8px;
+    }
+
+    .badge{
+      background:linear-gradient(180deg,#fff,#f2fbff);
+      border:1px solid var(--border);
+      padding:8px 12px;
+      border-radius:999px;
+      color:var(--accent);
+      font-weight:700;
+      font-size:0.85rem;
+    }
+
+    h1{
+      margin:0;
+      font-size:1.3rem;
+      color:#0f1724;
+    }
+
+    .meta{
+      color:var(--muted);
+      font-size:0.92rem;
+      margin-top:6px;
+    }
+
+    .actions{
+      display:flex;
+      gap:10px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:10px;
+      border:none;
+      background:var(--accent);
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+      cursor:pointer;
+      box-shadow:0 6px 14px rgba(47,134,230,0.12);
+    }
+
+    .btn.secondary{
+      background:#fff;
+      color:var(--accent);
+      border:1px solid var(--border);
+      box-shadow:none;
+    }
+
+    main{margin-top:18px;}
+    section{margin-top:18px;}
+
+    .panel{
+      background:#fbfdff;
+      border-radius:12px;
+      padding:16px;
+      border:1px solid var(--border);
+    }
+
+    .outline-card{
+      border-radius:10px;
+      border:1px solid var(--border);
+      padding:16px;
+      background:#fff;
+    }
+
+    /* Vocabulary boxes */
+    .vocab-grid{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .vocab{
+      flex:1;
+      min-width:220px;
+      border-radius:10px;
+      padding:14px;
+      border:2px solid #dfeefe;
+      background:#fff;
+    }
+
+    .vocab.green{
+      border-color:#c9f3dc;
+      background:#f5fff6;
+    }
+
+    .vocab h3{
+      margin:0;
+      font-size:1rem;
+      color:#154360;
+    }
+
+    .vocab p{
+      margin:8px 0 0 0;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* Transcrição / gravação buttons */
+    .media-row{
+      display:flex;
+      gap:14px;
+      margin-top:12px;
+      flex-wrap:wrap;
+    }
+
+    .media-btn{
+      background:#fff;
+      border:1px solid var(--border);
+      padding:12px 16px;
+      border-radius:10px;
+      font-weight:700;
+      color:var(--accent);
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      min-width:200px;
+      justify-content:center;
+    }
+
+    /* Homework box */
+    .homework{
+      background:#f3fff6;
+      border:1px solid #d7f5df;
+      border-radius:10px;
+      padding:14px;
+      margin-top:10px;
+    }
+
+    /* ===== TALK TIME – TABELA RETANGULAR ===== */
+    .speaking{
+      margin-top:18px;
+      padding:16px;
+      border-radius:12px;
+      background:linear-gradient(180deg,#ffffff,#fbfdff);
+      border:1px solid var(--border);
+      max-width:640px;
+    }
+
+    .speaking h2{
+      margin:0 0 10px 0;
+      font-size:1.05rem;
+      color:#0f1724;
+    }
+
+    .talk-table{
+      width:100%;
+      border-collapse:collapse;
+      border-radius:10px;
+      overflow:hidden;
+      background:#fff;
+      border:1px solid #e1e9f5;
+      font-size:0.9rem;
+    }
+
+    .talk-table th,
+    .talk-table td{
+      padding:8px 10px;
+      text-align:left;
+    }
+
+    .talk-table th{
+      background:#eef4ff;
+      color:#1b3556;
+      font-weight:700;
+      border-bottom:1px solid #dde6fa;
+    }
+
+    .row-teacher{
+      background:#e7f2ff; /* azul clarinho */
+    }
+
+    .row-student{
+      background:#e8f7ef; /* verde clarinho */
+    }
+
+    .talk-label{
+      font-weight:700;
+    }
+
+    .talk-percent{
+      font-weight:700;
+      color:#0f1724;
+    }
+
+    .talk-time{
+      color:var(--muted);
+    }
+
+    footer{
+      margin-top:20px;
+      color:var(--muted);
+      font-size:0.9rem;
+      text-align:center;
+    }
+
+    /* responsive */
+    @media (max-width:720px){
+      .card{padding:18px;border-radius:14px;}
+      .vocab-grid{flex-direction:column;}
+      .media-row{flex-direction:column;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <article class="card" role="main">
+      <header>
+        <div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <span class="badge">PÓS-AULA</span>
+            <h1>Revisão, direções e leitura sobre cinemas</h1>
+          </div>
+          <div class="meta" style="margin-top:8px;">
+            <strong>Professor:</strong> César &nbsp;•&nbsp;
+            <strong>Aluno:</strong> Isabelle &nbsp;•&nbsp;
+            <strong>Data:</strong> 27/04/2026
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="btn" href="#" onclick="window.print();return false;">Imprimir / Salvar PDF</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="panel">
+          <p style="margin:0;font-weight:600;color:#08325a;">
+            Resumo da aula com aquecimento de conversação, revisão de direções, vocabulário de leitura e interpretação sobre movie theaters.
+          </p>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Resumo da Aula</h2>
+          <div class="outline-card">
+            <p style="margin:0 0 8px 0;">
+              📘 Começamos a aula com uma conversa natural sobre cansaço, trabalho no sábado, overtime, aniversário do pai da Isabelle e rotina de marmitas. Esse aquecimento serviu para revisar frases simples do dia a dia, como <em>You look tired</em>, <em>I worked on Saturday</em> e <em>It was my dad’s birthday</em>.
+            </p>
+            <p style="margin:0 0 8px 0;">
+              Depois usamos perguntas do jogo <strong>Would you rather</strong> para praticar escolhas e justificativas. O foco principal foi entender expressões como <strong>barely make ends meet</strong>, <strong>money is never a concern</strong>, <strong>financial stress</strong>, <strong>embarrassing posts</strong>, <strong>voice crack</strong> e <strong>stutter</strong>. A Isabelle praticou respostas com <em>I would rather...</em> e discutiu situações envolvendo dinheiro, redes sociais e situações constrangedoras.
+            </p>
+            <p style="margin:0 0 8px 0;">
+              Na parte do livro, revisamos <strong>direções e localização</strong>, principalmente expressões como <em>across from</em>, <em>down the street</em>, <em>around the corner</em>, <em>walk to the corner</em> e <em>walk past</em>. Também reforçamos o uso de <strong>there is</strong> com sentido de “tem / existe” para indicar lugares.
+            </p>
+            <p style="margin:0;">
+              No final, fizemos uma atividade de leitura sobre cinemas, streaming e novas tecnologias. A Isabelle trabalhou interpretação de texto, identificou informações falsas e verdadeiras e acertou as questões principais. O texto trouxe vocabulário importante como <strong>writer</strong>, <strong>to stream</strong>, <strong>movie theater</strong>, <strong>screens</strong>, <strong>seats</strong>, <strong>sound system</strong>, <strong>LED</strong> e <strong>immersive</strong>.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Key Vocabulary</h2>
+          <div class="vocab-grid">
+            <div class="vocab">
+              <h3>Barely make ends meet</h3>
+              <p style="margin-top:8px;font-size:0.92rem;color:var(--muted);">
+                <em>(pt) mal conseguir se sustentar / viver financeiramente apertado(a)</em><br>
+                <small>She works a lot, but she barely makes ends meet.</small>
+              </p>
+            </div>
+            <div class="vocab green">
+              <h3>Immersive</h3>
+              <p style="margin-top:8px;font-size:0.92rem;color:var(--muted);">
+                <em>(pt) imersivo(a), que faz você se sentir dentro da experiência</em><br>
+                <small>The new theater has an immersive experience.</small>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- NOVOS TÓPICOS: VOCABULÁRIO DA AULA, FRASES MODELO, CORREÇÕES -->
+        <section>
+          <h2 style="margin-bottom:8px;">Vocabulário da aula</h2>
+          <div class="outline-card">
+            <h3 style="margin-top:0;">Expressões de conversa e rotina</h3>
+            <ul>
+              <li><strong>tired</strong> – cansado(a)</li>
+              <li><strong>sad</strong> – triste</li>
+              <li><strong>overtime</strong> – hora extra</li>
+              <li><strong>regular time</strong> – horário normal de trabalho</li>
+              <li><strong>Saturday</strong> – sábado</li>
+              <li><strong>holiday</strong> – feriado</li>
+              <li><strong>dad’s birthday</strong> – aniversário do pai</li>
+              <li><strong>meal prep / lunchboxes</strong> – preparo de marmitas</li>
+            </ul>
+
+            <h3>Would you rather e situações sociais</h3>
+            <ul>
+              <li><strong>would rather</strong> – preferiria</li>
+              <li><strong>successful business</strong> – negócio bem-sucedido</li>
+              <li><strong>barely</strong> – mal / quase não</li>
+              <li><strong>make ends meet</strong> – conseguir pagar as contas / se sustentar</li>
+              <li><strong>concern</strong> – preocupação / problema</li>
+              <li><strong>financial stress</strong> – estresse financeiro</li>
+              <li><strong>love letter</strong> – carta de amor</li>
+              <li><strong>breakup text</strong> – mensagem de término</li>
+              <li><strong>embarrassing</strong> – constrangedor / que dá vergonha</li>
+              <li><strong>social media</strong> – redes sociais</li>
+              <li><strong>voice crack</strong> – falha na voz</li>
+              <li><strong>stutter</strong> – gaguejar / gagueira</li>
+              <li><strong>uncontrollable</strong> – incontrolável</li>
+            </ul>
+
+            <h3>Direções e localização</h3>
+            <ul>
+              <li><strong>across from</strong> – em frente / do outro lado</li>
+              <li><strong>down the street</strong> – mais abaixo na rua / seguindo pela rua</li>
+              <li><strong>around the corner</strong> – virando a esquina / ali na esquina</li>
+              <li><strong>walk to the corner</strong> – caminhe até a esquina</li>
+              <li><strong>walk past</strong> – passe por / caminhe passando por</li>
+              <li><strong>turn left</strong> – vire à esquerda</li>
+              <li><strong>turn right</strong> – vire à direita</li>
+              <li><strong>block</strong> – quarteirão</li>
+              <li><strong>there is</strong> – tem / existe</li>
+            </ul>
+
+            <h3>Leitura: cinema e tecnologia</h3>
+            <ul>
+              <li><strong>writer</strong> – escritor(a), pessoa que escreveu o texto</li>
+              <li><strong>to stream</strong> – transmitir / assistir por streaming</li>
+              <li><strong>streamer</strong> – pessoa que faz transmissão</li>
+              <li><strong>streaming</strong> – serviço ou transmissão de conteúdo</li>
+              <li><strong>movie theater</strong> – cinema</li>
+              <li><strong>theater</strong> – cinema ou teatro, dependendo do contexto</li>
+              <li><strong>snacks</strong> – lanches / petiscos</li>
+              <li><strong>screen</strong> – tela</li>
+              <li><strong>seat</strong> – assento</li>
+              <li><strong>sound system</strong> – sistema de som</li>
+              <li><strong>LED</strong> – LED / tecnologia de tela</li>
+              <li><strong>immersive experience</strong> – experiência imersiva</li>
+              <li><strong>also</strong> – também</li>
+              <li><strong>huge</strong> – enorme / muito grande</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2 style="margin-bottom:8px;">Frases modelo da aula</h2>
+          <div class="outline-card">
+            <ul>
+              <li>You look tired.</li>
+              <li>I worked on Saturday.</li>
+              <li>It was overtime.</li>
+              <li>It was my dad’s birthday.</li>
+              <li>Would you rather run a successful business that you hate?</li>
+              <li>I would rather have a life where money is never a concern.</li>
+              <li>I would rather accidentally send a breakup text to my mother.</li>
+              <li>Have your parents join your social media.</li>
+              <li>My voice cracked.</li>
+              <li>Stuttering is embarrassing.</li>
+              <li>Where is the Metro Cinema?</li>
+              <li>It is down the street from Village Books.</li>
+              <li>Walk to the corner of Foster and Fifth Street.</li>
+              <li>There is one around the corner from the Metro Cinema.</li>
+              <li>The writer likes the new theater near his house.</li>
+              <li>Everyone stays home to stream movies and videos.</li>
+              <li>They are creating a more immersive experience.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ✅ NOVA SEÇÃO FIXA: CORREÇÕES IMPORTANTES -->
+        <section>
+          <h2 style="margin-bottom:8px;">Correções importantes</h2>
+          <div class="outline-card">
+            <ul>
+              <li><strong>They am ❌ → They are ✅</strong><br>
+                Para <em>they</em>, usamos <strong>are</strong>: <em>They are tired.</em></li>
+              <li><strong>Daddy birthday ❌ → Dad’s birthday / Daddy’s birthday ✅</strong><br>
+                Para indicar posse em inglês, usamos <strong>’s</strong>: <em>It was my dad’s birthday.</em></li>
+              <li><strong>I rather ❌ → I would rather ✅</strong><br>
+                A estrutura completa é <strong>I would rather + verb</strong>. Ex.: <em>I would rather have more money.</em></li>
+              <li><strong>Barely</strong> não é “sem hora para ir embora”.<br>
+                Em <strong>barely make ends meet</strong>, a ideia é “mal conseguir se sustentar”.</li>
+              <li><strong>Concern</strong> pode ser “preocupação” ou “problema”.<br>
+                Ex.: <em>Money is never a concern.</em> = Dinheiro nunca é uma preocupação.</li>
+              <li><strong>Embarrassing</strong> não é “embaraçado” no sentido físico.<br>
+                Significa algo constrangedor, algo que dá vergonha. Ex.: <em>old embarrassing posts</em>.</li>
+              <li><strong>Voice crack</strong> é quando a voz falha.<br>
+                Não é simplesmente “voz tremendo”; é aquela falha repentina na voz.</li>
+              <li><strong>Down the street</strong> não significa necessariamente “para baixo”.<br>
+                Em direções, costuma indicar “mais adiante pela rua / seguindo pela rua”.</li>
+              <li><strong>There is</strong> pode ser usado como “tem / existe”.<br>
+                Ex.: <em>There is one around the corner.</em> = Tem um ali na esquina.</li>
+              <li><strong>Writer</strong> vem do verbo <em>write</em>.<br>
+                Assim como <em>drive → driver</em>, temos <em>write → writer</em>.</li>
+              <li><strong>To stream</strong> é verbo.<br>
+                Pode significar transmitir ou consumir conteúdo por streaming. <em>Streaming</em> é o serviço/processo, e <em>streamer</em> é a pessoa.</li>
+              <li><strong>Theater</strong> depende do contexto.<br>
+                Pode ser “teatro”, mas também pode aparecer como forma curta de <em>movie theater</em>, ou seja, cinema.</li>
+              <li><strong>Also</strong> funciona como <em>too</em>.<br>
+                Ambos podem significar “também”, mas aparecem em posições diferentes na frase.</li>
+              <li><strong>Huge</strong> é mais forte que <em>big</em>.<br>
+                <em>Huge screens</em> passa a ideia de telas enormes, gigantes.</li>
+            </ul>
+          </div>
+        </section>
+        <!-- ✅ FIM DA NOVA SEÇÃO -->
+
+        <section>
+          <h2 style="margin-bottom:8px;">Transcrição &amp; Gravação</h2>
+          <div class="media-row">
+            <!-- Transcrição sem link (apenas botão) -->
+            <a class="media-btn" href="#" role="button">📄 Acessar transcrição</a>
+
+            <!-- Vídeo da aula com o link que você mandou -->
+            <a
+              class="media-btn"
+              href="https://youtu.be/so-7PN8lUNY"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="button"
+              style="background:linear-gradient(180deg,#1f6fd1,#2f86e6);color:#fff;border:none;min-width:260px;"
+            >
+              🎥 Assistir gravação (acesso privado)
+            </a>
+          </div>
+        </section>
+
+        <!-- ===== TABELA DE DISTRIBUIÇÃO DE FALA ===== -->
+        <section class="speaking" aria-label="Distribuição de fala">
+          <h2>Tempo de Fala (Talk Time)</h2>
+          <table class="talk-table">
+            <thead>
+              <tr>
+                <th>Quem falou</th>
+                <th>Porcentagem</th>
+                <th>Duração aproximada</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-teacher">
+                <td><span class="talk-label">César (Professor)</span></td>
+                <td><span class="talk-percent">58%</span></td>
+                <td class="talk-time">~35 minutos</td>
+              </tr>
+              <tr class="row-student">
+                <td><span class="talk-label">Isabelle</span></td>
+                <td><span class="talk-percent">42%</span></td>
+                <td class="talk-time">~25 minutos</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+        <!-- ===== FIM TABELA ===== -->
+
+        <section>
+          <h2 style="margin-bottom:8px;">Homework</h2>
+          <div class="homework">
+            <p style="margin:0 0 8px 0;">
+              📌 <strong>Lição de casa:</strong>
+            </p>
+            <ul style="margin:0 0 6px 18px;padding:0;font-size:0.94rem;color:var(--muted);">
+              <li>Ler este pós-aula de <strong>2 a 3 vezes na semana</strong>.</li>
+            </ul>
+            <p style="margin:6px 0 0 0;">
+              <!-- Botão de tarefa de casa com link do Babadum -->
+              <a
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="btn secondary"
+                style="padding:8px 12px;border-radius:8px;font-weight:700;"
+              >
+                📘 Revisar pós-aula
+              </a>
+            </p>
+          </div>
+
+          <div style="margin-top:14px;">
+            <a class="btn" href="https://wa.me" style="background:#25D366;border-radius:10px;box-shadow:none;">
+              💬 Falar comigo no WhatsApp
+            </a>
+          </div>
+        </section>
+
+      </main>
+
+      <footer>
+        <p style="margin:18px 0 0 0;color:var(--muted);font-size:0.9rem;">
+          © 2025 CZK English • Este conteúdo é exclusivo para fins educacionais. • Suporte: czkenglish@gmail.com
+        </p>
+      </footer>
+    </article>
+  </div>
+</body>
+</html>
